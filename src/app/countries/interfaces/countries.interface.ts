@@ -8,7 +8,7 @@ export enum Region {
 }
 
 export interface SmallCountry{
-    name   :         string;
+    name   :         any;
     cca3   :         string;
     borders:         string[];
 

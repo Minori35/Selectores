@@ -3,7 +3,7 @@ import { HttpClient  } from "@angular/common/http";
 
 
 import { Country, Region, SmallCountry } from '../interfaces/countries.interface';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +28,12 @@ export class CountriesService {
 
     return this.http.get<SmallCountry[]>(url).
       pipe(
-        tap( response => console.log(response)
-        )
+        map(countries => countries.map(country =>({
+          name: country.name.common,
+          cca3: country.cca3,
+          //?? 4.7 en las versiones de angular
+          borders: country.borders?? []
+        }))),
       )
 
   }
